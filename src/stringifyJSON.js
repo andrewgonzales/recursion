@@ -27,8 +27,10 @@ var stringifyJSON = function(obj) {
   		var strungKeys = [];
   		var strungVals = [];
   	  _.each(obj, function(val, key){
-  	  	strungKeys.push(stringifyJSON(key));
-  	  	strungVals.push(stringifyJSON(val));
+  	  	if(typeof val !== "function" && typeof val !== "undefined"){
+  	  	  strungKeys.push(stringifyJSON(key));
+  	  	  strungVals.push(stringifyJSON(val));
+  	  	}
   	  });
   	  var strung = "";
   	  for(var i = 0; i<strungKeys.length;i++){
