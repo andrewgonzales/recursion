@@ -14,8 +14,30 @@ var stringifyJSON = function(obj) {
   if(typeof obj === "number" || typeof obj === "boolean"){
     return obj.toString();
   }
-  if(Array.isArray(obj)){  //If array
+  if(Array.isArray(obj)){                       //If array
     var strung=_.map(obj,stringifyJSON);
     return "[" + strung + "]";
-  }
+  }else {                                        //If object
+    var strung;      
+  	if(Object.getOwnPropertyNames(obj).length===0){ //if empty object
+      strung = "";
+  	  return "{" + strung + "}";
+  	}
+  	if(Object.getOwnPropertyNames(obj).length>0){
+  		var strungKeys = [];
+  		var strungVals = [];
+  	  _.each(obj, function(val, key){
+  	  	strungKeys.push(stringifyJSON(key));
+  	  	strungVals.push(stringifyJSON(val));
+  	  });
+  	  var strung = "";
+  	  for(var i = 0; i<strungKeys.length;i++){
+  	  	strung = strung +[strungKeys[i]] + ":" + strungVals[i];
+  	  	if(i<strungKeys.length-1){
+  	  		strung = strung + ",";
+  	  	}
+  	  }
+  	return "{" + strung + "}";
+    }
+ }
 };
