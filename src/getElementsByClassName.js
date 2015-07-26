@@ -13,10 +13,20 @@ var getElementsByClassName = function(className){
   	return node.childNodes.length>0;
   };
   var addElement = function(node){
-  	if(hasTheClass(node)){
   	  elements.push(node);
+  };
+  var grab = function(currentNode){
+  	if(hasTheClass(currentNode)){             //Base case, collect element if it has the class
+  		addElement(currentNode);
+  		return;
+  	}else if(hasChildren(currentNode)){		//Recursive case, search children
+  		var children = currentNode.childNodes;
+  		var beenCalled 
+  		return _.each(children, grab);
+  	}else{						//Termination case, dead end
+  		return;
   	}
   };
-  addElement(document.body);
+  grab(document.body);
   return elements;
 };
