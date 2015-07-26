@@ -18,13 +18,12 @@ var getElementsByClassName = function(className){
   var grab = function(currentNode){
   	if(hasTheClass(currentNode)){             //Base case, collect element if it has the class
   		addElement(currentNode);
-  		return;
-  	}else if(hasChildren(currentNode)){		//Recursive case, search children
-  		var children = currentNode.childNodes;
-  		var beenCalled 
-  		return _.each(children, grab);
-  	}else{						//Termination case, dead end
-  		return;
+  	}
+  	if(hasChildren(currentNode)){		//Recursive case, search children
+  	  var children = currentNode.childNodes;
+  	  return _.each(children, grab);
+  	}else{
+  	  return;							//Termination case, dead end
   	}
   };
   grab(document.body);
